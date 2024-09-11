@@ -8,6 +8,9 @@ export class ServiceContainer {
     public saleService: SaleService;
 
     private constructor() {
+
+        // Dependencies are resolved here
+
         this.userService = new UserService();
         this.saleService = new SaleService(this.userService);
     }
