@@ -1,5 +1,7 @@
 import {SaleService} from "./apps/app2/backend/services/SaleService";
 import {UserService} from "./apps/app1/backend/services/UserService";
+import {SaleRepository} from "./apps/app2/backend/repositories/SaleRepository";
+import {UserRepository} from "./apps/app1/backend/repositories/UserRepository";
 
 export class ServiceContainer {
     private static instance: ServiceContainer;
@@ -11,8 +13,8 @@ export class ServiceContainer {
 
         // Dependencies are resolved here
 
-        this.userService = new UserService();
-        this.saleService = new SaleService(this.userService);
+        this.userService = new UserService(new UserRepository());
+        this.saleService = new SaleService(new SaleRepository())
     }
 
     public static getInstance(): ServiceContainer {

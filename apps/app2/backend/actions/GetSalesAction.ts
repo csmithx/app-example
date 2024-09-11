@@ -2,6 +2,7 @@ import {ActionInterface} from "../../../../interfaces/ActionInterface";
 import {SalesInterface} from "../../../../interfaces/EntityInterfaces";
 import {UserServiceInterface} from "../../../../interfaces/ServicesInterfaces";
 import {SaleRepository} from "../repositories/SaleRepository";
+import {ServiceContainer} from "../../../../ServiceContainer";
 
 export class GetSalesAction implements ActionInterface {
 
@@ -9,10 +10,8 @@ export class GetSalesAction implements ActionInterface {
     private salesRepository: SaleRepository;
 
     constructor(
-        userService: UserServiceInterface,
         salesRepository: SaleRepository
     ) {
-        this.userService = userService;
         this.salesRepository = salesRepository;
     }
 
@@ -26,7 +25,7 @@ export class GetSalesAction implements ActionInterface {
 
         return {
             id: sale.id,
-            user: await this.userService.getUser(sale.user_id)
+            user: await ServiceContainer.getInstance().userService.getUser(sale.user_id)
         };
     }
 }

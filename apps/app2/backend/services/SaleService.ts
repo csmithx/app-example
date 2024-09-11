@@ -10,21 +10,13 @@ import {SaleRepository} from "../repositories/SaleRepository";
 
 export class SaleService implements SalesServiceInterface {
 
-    // Internal app repositories
     private saleRespository: SaleRepository;
 
-    // Services (passed as dependencies)
-    private userService: UserServiceInterface;
-
-    constructor(userService: UserServiceInterface) {
-
-        this.userService = userService;
-
-        // @TODO: Inject the repository or use a factory or something for resolving the internal application dependencies
-        this.saleRespository = new SaleRepository();
+    constructor(saleRepository: SaleRepository) {
+        this.saleRespository = saleRepository;
     }
 
     getSale(): Promise<SalesInterface | null> {
-        return (new GetSalesAction(this.userService, this.saleRespository)).execute();
+        return (new GetSalesAction(this.saleRespository)).execute();
     }
 }

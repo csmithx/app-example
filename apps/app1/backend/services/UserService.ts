@@ -10,10 +10,8 @@ export class UserService implements UserServiceInterface {
 
     private usersRepository: UserRepository;
 
-    constructor() {
-
-        // @TODO: Inject the repository or use a factory or something for resolving the internal application dependencies
-        this.usersRepository = new UserRepository();
+    constructor(usersRepository: UserRepository) {
+        this.usersRepository = usersRepository;
     }
 
     getUser(userId: string): Promise<UserInterface | null> {
